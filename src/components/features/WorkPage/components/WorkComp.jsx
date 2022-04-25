@@ -1,6 +1,6 @@
 import { Github, mediaQueries } from 'components/common';
 import { motion } from 'framer-motion';
-import React, { lazy } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 

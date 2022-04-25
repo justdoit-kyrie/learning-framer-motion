@@ -1,17 +1,14 @@
-import {
-  BigTitle,
-  CustomParticles,
-  Design,
-  Develope,
-  lightTheme,
-  Logo,
-  mediaQueries,
-  PowerButton,
-  SocialIcons,
-} from 'components/common';
+import { Design, Develope, lightTheme, mediaQueries } from 'components/common';
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import styled from 'styled-components';
+
+const Logo = lazy(() => import('components/common/Logo'));
+const BigTitle = lazy(() => import('components/common/BigTitle'));
+const PowerButton = lazy(() => import('components/common/PowerButton'));
+const SocialIcons = lazy(() => import('components/common/SocialIcons'));
+const CustomParticles = lazy(() => import('components/common/CustomParticles'));
+const Loading = lazy(() => import('components/common/Loading'));
 
 const Container = styled(motion.div)`
   width: 100vw;
@@ -117,57 +114,59 @@ const config = {
 
 const MySkillsPage = () => {
   return (
-    <Container variants={config} initial="hidden" animate="show" exit="hidden">
-      <BigTitle text="skills" top="80%" right="30%" textTrans="capitalize" />
-      <CustomParticles theme="light" />
-      <Logo color={lightTheme.text} />
-      <SocialIcons color={lightTheme.text} />
-      <PowerButton />
-      <Main>
-        <Box>
-          <Designer>
-            <Design width={40} height={40} />
-            <span>designer</span>
-          </Designer>
-          <Description>
-            <p>I love to create design which speaks, Keep it clean, minimal and simple.</p>
-          </Description>
-          <Description>
-            <strong>I LIKE TO DESIGN</strong>
-            <ul>
-              <li>Web Design</li>
-              <li>Mobile Apps</li>
-            </ul>
-          </Description>
-          <Description>
-            <strong>tools</strong>
-            <ul>
-              <li>Figma</li>
-            </ul>
-          </Description>
-        </Box>
-        <Box>
-          <Designer>
-            <Develope width={40} height={40} />
-            <span>Frontend Developer</span>
-          </Designer>
-          <Description>
-            <p>
-              I value business or brand for which i'm creating, thus i enjoy bringing new ideas to
-              life.
-            </p>
-          </Description>
-          <Description>
-            <strong>SKILLS</strong>
-            <p>Html, Css, Js, React, Redux, Sass, Bootstrap, Tailwind, Firebase etc.</p>
-          </Description>
-          <Description>
-            <strong>tools</strong>
-            <p>VScode, Github, Codepen etc.</p>
-          </Description>
-        </Box>
-      </Main>
-    </Container>
+    <Suspense fallback={<Loading />}>
+      <Container key="skills" variants={config} initial="hidden" animate="show" exit="hidden">
+        <BigTitle text="skills" top="80%" right="30%" textTrans="capitalize" />
+        <CustomParticles theme="light" />
+        <Logo color={lightTheme.text} />
+        <SocialIcons color={lightTheme.text} />
+        <PowerButton />
+        <Main>
+          <Box>
+            <Designer>
+              <Design width={40} height={40} />
+              <span>designer</span>
+            </Designer>
+            <Description>
+              <p>I love to create design which speaks, Keep it clean, minimal and simple.</p>
+            </Description>
+            <Description>
+              <strong>I LIKE TO DESIGN</strong>
+              <ul>
+                <li>Web Design</li>
+                <li>Mobile Apps</li>
+              </ul>
+            </Description>
+            <Description>
+              <strong>tools</strong>
+              <ul>
+                <li>Figma</li>
+              </ul>
+            </Description>
+          </Box>
+          <Box>
+            <Designer>
+              <Develope width={40} height={40} />
+              <span>Frontend Developer</span>
+            </Designer>
+            <Description>
+              <p>
+                I value business or brand for which i'm creating, thus i enjoy bringing new ideas to
+                life.
+              </p>
+            </Description>
+            <Description>
+              <strong>SKILLS</strong>
+              <p>Html, Css, Js, React, Redux, Sass, Bootstrap, Tailwind, Firebase etc.</p>
+            </Description>
+            <Description>
+              <strong>tools</strong>
+              <p>VScode, Github, Codepen etc.</p>
+            </Description>
+          </Box>
+        </Main>
+      </Container>
+    </Suspense>
   );
 };
 

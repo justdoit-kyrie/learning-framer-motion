@@ -1,16 +1,16 @@
 import astronaut from 'assets/Images/spaceman.png';
-import {
-  BigTitle,
-  CustomParticles,
-  darkTheme,
-  Logo,
-  mediaQueries,
-  PowerButton,
-  SocialIcons,
-} from 'components/common';
+import { darkTheme, mediaQueries } from 'components/common';
 import { motion } from 'framer-motion';
 import React from 'react';
+import { lazy, Suspense } from 'react/cjs/react.production.min';
 import styled, { keyframes, ThemeProvider } from 'styled-components';
+
+const CustomParticles = lazy(() => import('components/common/CustomParticles'));
+const Logo = lazy(() => import('components/common/Logo'));
+const BigTitle = lazy(() => import('components/common/BigTitle'));
+const PowerButton = lazy(() => import('components/common/PowerButton'));
+const SocialIcons = lazy(() => import('components/common/SocialIcons'));
+const Loading = lazy(() => import('components/common/Loading'));
 
 const translate = keyframes`
 0% {
@@ -93,44 +93,46 @@ const config = {
 
 const AboutPage = (props) => {
   return (
-    <Container variants={config} initial="hidden" animate="show" exit="hidden">
-      <ThemeProvider theme={darkTheme}>
-        <BigTitle text="about" top="12%" left="5%" />
-        <CustomParticles theme="dark" />
-        <Logo color={darkTheme.text} />
-        <SocialIcons theme="dark" />
-        <PowerButton />
-        <Spaceman
-          initial={{ right: '-20%', top: '100%' }}
-          animate={{
-            right: '5%',
-            top: '10%',
-            transition: { duration: 2, delay: 0.5 },
-          }}
-        >
-          <img src={astronaut} alt="spacement" className="astronaut" />
-        </Spaceman>
-        <Main
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ type: 'spring', duration: 1, delay: 1 }}
-        >
-          <p>
-            I'm a front-end developer located in India. I love to create simple yet beautiful
-            websites with great user experience.
-          </p>
-          <p>
-            I'm interested in the whole frontend stack Like trying new things and building great
-            projects. I'm an independent freelancer and blogger. I love to write blogs and read
-            books.
-          </p>
-          <p>
-            I believe everything is an Art when you put your consciousness in it. You can connect
-            with me via social links.
-          </p>
-        </Main>
-      </ThemeProvider>
-    </Container>
+    <Suspense fallback={<Loading />}>
+      <Container key="about" variants={config} initial="hidden" animate="show" exit="hidden">
+        <ThemeProvider theme={darkTheme}>
+          <BigTitle text="about" top="12%" left="5%" />
+          <CustomParticles theme="dark" />
+          <Logo color={darkTheme.text} />
+          <SocialIcons theme="dark" />
+          <PowerButton />
+          <Spaceman
+            initial={{ right: '-20%', top: '100%' }}
+            animate={{
+              right: '5%',
+              top: '10%',
+              transition: { duration: 2, delay: 0.5 },
+            }}
+          >
+            <img src={astronaut} alt="spacement" className="astronaut" />
+          </Spaceman>
+          <Main
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ type: 'spring', duration: 1, delay: 1 }}
+          >
+            <p>
+              I'm a front-end developer located in India. I love to create simple yet beautiful
+              websites with great user experience.
+            </p>
+            <p>
+              I'm interested in the whole frontend stack Like trying new things and building great
+              projects. I'm an independent freelancer and blogger. I love to write blogs and read
+              books.
+            </p>
+            <p>
+              I believe everything is an Art when you put your consciousness in it. You can connect
+              with me via social links.
+            </p>
+          </Main>
+        </ThemeProvider>
+      </Container>
+    </Suspense>
   );
 };
 

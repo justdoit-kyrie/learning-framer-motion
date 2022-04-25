@@ -1,16 +1,14 @@
 import Avartar2 from 'assets/Images/catching snowflakes.png';
-import {
-  darkTheme,
-  Logo,
-  mediaQueries,
-  PowerButton,
-  SocialIcons,
-  YinYang,
-} from 'components/common';
+import { darkTheme, mediaQueries, YinYang } from 'components/common';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+
+const Logo = lazy(() => import('components/common/Logo'));
+const PowerButton = lazy(() => import('components/common/PowerButton'));
+const SocialIcons = lazy(() => import('components/common/SocialIcons'));
+const Loading = lazy(() => import('components/common/Loading'));
 
 const rotate = keyframes`
   from {
@@ -265,118 +263,83 @@ const MainPage = () => {
   const sm = window.matchMedia('(max-width: 767px)').matches;
 
   return (
-    <MainContainer
-      key="modal"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={path === 'about' || path === 'mySkills' ? moveY : moveX}
-      transition={{ duration: 0.5 }}
-      md={+md}
-      click={+click}
-    >
-      <DarkBg click={click} />
-      {click && (
-        <Main
-          initial={{ height: 0 }}
-          animate={{ height: sm ? '50vh' : '60vh' }}
-          transition={{
-            type: 'spring',
-            duration: 0.5,
-            delay: 1,
-          }}
-        >
-          <Box color={click ? darkTheme.text : darkTheme.body}>
-            <h2>Hi,</h2>
-            <h3>I'm Kyrie</h3>
-            <h6>I design and Code simple yet beautiful websites.</h6>
-          </Box>
-          <Image
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+    <Suspense fallback={<Loading />}>
+      <MainContainer
+        key="modal"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={path === 'about' || path === 'mySkills' ? moveY : moveX}
+        transition={{ duration: 0.5 }}
+        md={+md}
+        click={+click}
+      >
+        <DarkBg click={click} />
+        {click && (
+          <Main
+            initial={{ height: 0 }}
+            animate={{ height: sm ? '50vh' : '60vh' }}
             transition={{
-              duration: 1,
-              delay: 2,
+              type: 'spring',
+              duration: 0.5,
+              delay: 1,
             }}
           >
-            <img src={Avartar2} alt="profile me" className="pic" />
-          </Image>
-        </Main>
-      )}
+            <Box color={click ? darkTheme.text : darkTheme.body}>
+              <h2>Hi,</h2>
+              <h3>I'm Kyrie</h3>
+              <h6>I design and Code simple yet beautiful websites.</h6>
+            </Box>
+            <Image
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 1,
+                delay: 2,
+              }}
+            >
+              <img src={Avartar2} alt="profile me" className="pic" />
+            </Image>
+          </Main>
+        )}
 
-      <Container>
-        <PowerButton />
-        <Logo color={click ? darkTheme.text : darkTheme.body} />
+        <Container>
+          <PowerButton />
+          <Logo color={click ? darkTheme.text : darkTheme.body} />
 
-        <Contact
-          click={+click}
-          initial={{ y: -200, transition: { type: 'spring', duration: 1.5 } }}
-          animate={{ y: 0, transition: { type: 'spring', duration: 1.5, delay: 0.5 } }}
-          target="_blank"
-          to={{ pathname: 'mailto:ducndm.01@gmail.com' }}
-        >
-          <motion.h3 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            Say hi..
-          </motion.h3>
-        </Contact>
-
-        <Center click={click}>
-          {sm ? (
-            <YinYang
-              onClick={() => setClick(!click)}
-              width={click ? 50 : 80}
-              height={click ? 50 : 80}
-            />
-          ) : (
-            <YinYang
-              onClick={() => setClick(!click)}
-              width={click ? 120 : 200}
-              height={click ? 120 : 200}
-            />
-          )}
-          <span>click here</span>
-        </Center>
-
-        <SocialIcons theme={click ? 'dark' : 'light'} />
-        <BLOG md={+md} click={+click} onClick={() => setPath('blog')} to="/blog">
-          <motion.h2
-            initial={{
-              y: -200,
-            }}
-            animate={{
-              y: 0,
-              transition: { type: 'spring', duration: 1.5, delay: 0.5 },
-            }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            Blog
-          </motion.h2>
-        </BLOG>
-        <WORK
-          md={+md}
-          click={+click}
-          to="/work"
-          onClick={() => setPath('work')}
-          color={click ? darkTheme.text : darkTheme.body}
-        >
-          <motion.h2
-            initial={{ y: -200 }}
+          <Contact
+            click={+click}
+            initial={{ y: -200, transition: { type: 'spring', duration: 1.5 } }}
             animate={{ y: 0, transition: { type: 'spring', duration: 1.5, delay: 0.5 } }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            target="_blank"
+            to={{ pathname: 'mailto:ducndm.01@gmail.com' }}
           >
-            Work
-          </motion.h2>
-        </WORK>
-        <FooterBar>
-          <ABOUT
-            to="/about"
-            onClick={() => setPath('about')}
-            color={click && !md ? darkTheme.text : darkTheme.body}
-          >
+            <motion.h3 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              Say hi..
+            </motion.h3>
+          </Contact>
+
+          <Center click={click}>
+            {sm ? (
+              <YinYang
+                onClick={() => setClick(!click)}
+                width={click ? 50 : 80}
+                height={click ? 50 : 80}
+              />
+            ) : (
+              <YinYang
+                onClick={() => setClick(!click)}
+                width={click ? 120 : 200}
+                height={click ? 120 : 200}
+              />
+            )}
+            <span>click here</span>
+          </Center>
+
+          <SocialIcons theme={click && !md && !sm ? 'dark' : 'light'} />
+          <BLOG md={+md} click={+click} onClick={() => setPath('blog')} to="/blog">
             <motion.h2
               initial={{
-                y: 200,
+                y: -200,
               }}
               animate={{
                 y: 0,
@@ -385,22 +348,59 @@ const MainPage = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              About.
+              Blog
             </motion.h2>
-          </ABOUT>
-          <MySkills onClick={() => setPath('mySkills')} to="/mySkills">
+          </BLOG>
+          <WORK
+            md={+md}
+            click={+click}
+            to="/work"
+            onClick={() => setPath('work')}
+            color={click ? darkTheme.text : darkTheme.body}
+          >
             <motion.h2
-              initial={{ y: 200 }}
+              initial={{ y: -200 }}
               animate={{ y: 0, transition: { type: 'spring', duration: 1.5, delay: 0.5 } }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              MySkills.
+              Work
             </motion.h2>
-          </MySkills>
-        </FooterBar>
-      </Container>
-    </MainContainer>
+          </WORK>
+          <FooterBar>
+            <ABOUT
+              to="/about"
+              onClick={() => setPath('about')}
+              color={click && !md ? darkTheme.text : darkTheme.body}
+            >
+              <motion.h2
+                initial={{
+                  y: 200,
+                }}
+                animate={{
+                  y: 0,
+                  transition: { type: 'spring', duration: 1.5, delay: 0.5 },
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                About.
+              </motion.h2>
+            </ABOUT>
+            <MySkills onClick={() => setPath('mySkills')} to="/mySkills">
+              <motion.h2
+                initial={{ y: 200 }}
+                animate={{ y: 0, transition: { type: 'spring', duration: 1.5, delay: 0.5 } }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                MySkills.
+              </motion.h2>
+            </MySkills>
+          </FooterBar>
+        </Container>
+      </MainContainer>
+    </Suspense>
   );
 };
 

@@ -1,11 +1,16 @@
 import BG from 'assets/Images/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg';
-import { BigTitle, Logo, mediaQueries, PowerButton, SocialIcons } from 'components/common';
+import { mediaQueries } from 'components/common';
 import { Blogs } from 'data/BlogData';
 import { motion } from 'framer-motion';
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Blog from './components/Blog';
-import CustomAnchor from './components/CustomAnchor';
+
+const Logo = lazy(() => import('components/common/Logo'));
+const BigTitle = lazy(() => import('components/common/BigTitle'));
+const PowerButton = lazy(() => import('components/common/PowerButton'));
+const SocialIcons = lazy(() => import('components/common/SocialIcons'));
+const CustomAnchor = lazy(() => import('./components/CustomAnchor'));
 
 const MainContainer = styled(motion.div)`
   background: ${`url(${BG})`};
@@ -61,7 +66,7 @@ const BlogPage = () => {
   }, []);
 
   return (
-    <MainContainer variants={config} initial="hidden" animate="show" exit="hidden">
+    <MainContainer key="blog" variants={config} initial="hidden" animate="show" exit="hidden">
       <Container>
         <BigTitle text="blog" top="12%" left="5%" />
 
