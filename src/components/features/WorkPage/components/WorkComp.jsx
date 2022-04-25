@@ -1,6 +1,6 @@
 import { Github, mediaQueries } from 'components/common';
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { lazy } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -18,13 +18,15 @@ const Box = styled(motion.div)`
 
   background-color: ${(props) => props.theme.text};
   color: ${(props) => props.theme.body};
+  border: 2px solid transparent;
 
   border-radius: 0 50px 0 50px;
 
   &:hover {
     background-color: ${(props) => props.theme.body};
     color: ${(props) => props.theme.text};
-    border: 2px solid ${(props) => props.theme.text};
+    border-color: ${(props) => props.theme.text};
+
     backdrop-filter: blur(4px);
     transition: all 0.2s linear;
   }

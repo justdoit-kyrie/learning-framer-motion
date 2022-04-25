@@ -1,17 +1,14 @@
-import {
-  BigTitle,
-  darkTheme,
-  Logo,
-  mediaQueries,
-  PowerButton,
-  SocialIcons,
-  YinYang,
-} from 'components/common';
+import { darkTheme, mediaQueries, YinYang } from 'components/common';
 import { Work } from 'data/WorkData';
 import { motion } from 'framer-motion';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, lazy } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import WorkComp from './components/WorkComp';
+
+const Logo = lazy(() => import('components/common/Logo'));
+const BigTitle = lazy(() => import('components/common/BigTitle'));
+const PowerButton = lazy(() => import('components/common/PowerButton'));
+const SocialIcons = lazy(() => import('components/common/SocialIcons'));
 
 const MainContainer = styled(motion.div)`
   height: ${`${Work.length * 450}px`};
