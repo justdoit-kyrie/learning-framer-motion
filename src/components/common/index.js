@@ -9,3 +9,4 @@ export { default as SocialIcons } from './SocialIcons';
 export { default as CustomParticles } from './CustomParticles';
 export { default as BigTitle } from './BigTitle';
 export { default as Loading } from './Loading';
+export { default as SoundBar } from './SoundBar';

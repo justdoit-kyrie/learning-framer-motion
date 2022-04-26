@@ -2,7 +2,7 @@ import BG from 'assets/Images/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg';
 import { mediaQueries } from 'components/common';
 import { Blogs } from 'data/BlogData';
 import { motion } from 'framer-motion';
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Blog from './components/Blog';
 

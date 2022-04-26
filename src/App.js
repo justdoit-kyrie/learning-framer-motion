@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 
-import { NotFound, GlobalStyle, lightTheme, Loading } from 'components';
+import { NotFound, GlobalStyle, lightTheme, Loading, SoundBar } from 'components';
 import { ThemeProvider } from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
@@ -20,6 +20,7 @@ function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
+      <SoundBar />
       <Suspense fallback={<Loading />}>
         <AnimatePresence exitBeforeEnter>
           <Switch location={location} key={location.pathname}>

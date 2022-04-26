@@ -1,7 +1,7 @@
 import { darkTheme, mediaQueries, YinYang } from 'components/common';
 import { Work } from 'data/WorkData';
 import { motion } from 'framer-motion';
-import React, { lazy, Suspense, useEffect, useRef } from 'react';
+import React, { lazy, useEffect, useRef } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import WorkComp from './components/WorkComp';
 
@@ -9,7 +9,6 @@ const Logo = lazy(() => import('components/common/Logo'));
 const BigTitle = lazy(() => import('components/common/BigTitle'));
 const PowerButton = lazy(() => import('components/common/PowerButton'));
 const SocialIcons = lazy(() => import('components/common/SocialIcons'));
-const Loading = lazy(() => import('components/common/Loading'));
 
 const MainContainer = styled(motion.div)`
   height: ${`${Work.length * 450}px`};
