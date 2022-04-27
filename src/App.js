@@ -17,6 +17,11 @@ const MySkillsPage = lazy(() => import('components/features/MySkillsPage'));
 function App() {
   const location = useLocation();
 
+  useEffect(() => {
+    console.log(process.env.REACT_APP_TEST);
+  }, [])
+
+
   return (
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
