@@ -5,7 +5,7 @@ import { NotFound, GlobalStyle, lightTheme, Loading, SoundBar } from 'components
 import { ThemeProvider } from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { lazy } from 'react/cjs/react.production.min';
 
 const MainPage = lazy(() => import('components/features/MainPage'));
